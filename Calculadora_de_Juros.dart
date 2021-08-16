@@ -46,12 +46,13 @@ void calcJurosSimples() {
   double capitalInicial = 0;
   double taxaJuros = 0;
   int tempo = 0; 
+  double jurosLucro = 0;
 
   print("Calculadora de juros simples selecionada");
 
   stdout.write("Digite o valor inicial: ");
   juroSimplesInput = stdin.readLineSync()!;
-  capitalInicial = double.parse(juroSimplesInput);
+  capitalInicial =  double.parse(juroSimplesInput);
 
   stdout.write("Digite a taxa de juros ao ano: ");
   juroSimplesInput = stdin.readLineSync()!;
@@ -63,12 +64,13 @@ void calcJurosSimples() {
 
   taxaJuros = taxaJuros / 100;
   montante = capitalInicial  + (capitalInicial * taxaJuros * tempo);
+  jurosLucro = montante - capitalInicial;
 
   if (tempo <= 1) {
-    print("O montante será de R\$$montante reais ao fim de $tempo ano e os juros acumulados serão de R\$${montante - capitalInicial} reais.");
+    print("O montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de $tempo ano e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.");
     
   } else {
-    print("O montante será de R\$$montante reais ao fim de $tempo anos e os juros acumulados serão de R\$${montante - capitalInicial} reais.");
+    print("O montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de $tempo anos e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.");
   }
 
 }
@@ -79,6 +81,7 @@ void calcJurosComposto() {
   double capitalInicial = 0;
   double taxaJuros = 0;
   int tempoAno = 0;
+  double jurosLucro = 0;
 
   print("Calculadora de juros compostos selecionada");
 
@@ -95,13 +98,14 @@ void calcJurosComposto() {
   tempoAno = int.parse(juroCompostoInput);
 
   taxaJuros = taxaJuros / 100;
-  montante = capitalInicial * pow((1 + taxaJuros), tempoAno) ;
+  montante = capitalInicial * pow((1 + taxaJuros), tempoAno);
+  jurosLucro = montante - capitalInicial;
 
   if (tempoAno <= 1) {
-    print("O montante será de R\$$montante reais ao fim de $tempoAno ano e os juros acumulados serão de R\$${montante - capitalInicial} reais.");
+    print("O montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de $tempoAno ano e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.");
 
   } else {
-    print("O montante será de R\$$montante reais ao fim de $tempoAno anos e os juros acumulados serão de R\$${montante - capitalInicial} reais.");
+    print("O montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de $tempoAno anos e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.");
 
   }
 
