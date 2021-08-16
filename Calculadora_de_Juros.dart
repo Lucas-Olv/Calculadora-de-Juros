@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 int main() 
 {
@@ -11,7 +12,7 @@ void telaInicial() {
   var selecionarMenu = 0;
   var selecionarMenuInput = "";
 
-  print("Seja bem vindo a calculadora de juros! v0.2.0");
+  print("Seja bem vindo a calculadora de juros! v1.0.0");
   print("1. Calcular juros simples.");
   print("2. Calcular juros compostos.");
 
@@ -40,11 +41,11 @@ void telaInicial() {
 
 void calcJurosSimples() {
   
-  var juroSimplesInput = "";
+  String? juroSimplesInput = "";
   double montante = 0;
   double capitalInicial = 0;
   double taxaJuros = 0;
-  double tempo = 0; 
+  int tempo = 0; 
 
   print("Calculadora de juros simples selecionada");
 
@@ -58,16 +59,50 @@ void calcJurosSimples() {
 
   stdout.write("Digite o tempo em anos: ");
   juroSimplesInput = stdin.readLineSync()!;
-  tempo= double.parse(juroSimplesInput);
+  tempo= int.parse(juroSimplesInput);
 
   taxaJuros = taxaJuros / 100;
   montante = capitalInicial  + (capitalInicial * taxaJuros * tempo);
 
-print("O montante será de R\$$montante reais ao fim de $tempo anos e os juros acumulados serão de R\$${montante - capitalInicial} reais.");
-
+  if (tempo <= 1) {
+    print("O montante será de R\$$montante reais ao fim de $tempo ano e os juros acumulados serão de R\$${montante - capitalInicial} reais.");
+    
+  } else {
+    print("O montante será de R\$$montante reais ao fim de $tempo anos e os juros acumulados serão de R\$${montante - capitalInicial} reais.");
+  }
 
 }
 
 void calcJurosComposto() {
-  print("Hello 2");
+  String? juroCompostoInput = "";
+  double montante = 0;
+  double capitalInicial = 0;
+  double taxaJuros = 0;
+  int tempoAno = 0;
+
+  print("Calculadora de juros compostos selecionada");
+
+  stdout.write("Digite o valor inicial: ");
+  juroCompostoInput = stdin.readLineSync()!;
+  capitalInicial = double.parse(juroCompostoInput);
+
+  stdout.write("Digite a taxa de juros ao ano: ");
+  juroCompostoInput = stdin.readLineSync()!;
+  taxaJuros = double.parse(juroCompostoInput);
+
+  stdout.write("Digite o tempo em anos: ");
+  juroCompostoInput = stdin.readLineSync()!;
+  tempoAno = int.parse(juroCompostoInput);
+
+  taxaJuros = taxaJuros / 100;
+  montante = capitalInicial * pow((1 + taxaJuros), tempoAno) ;
+
+  if (tempoAno <= 1) {
+    print("O montante será de R\$$montante reais ao fim de $tempoAno ano e os juros acumulados serão de R\$${montante - capitalInicial} reais.");
+
+  } else {
+    print("O montante será de R\$$montante reais ao fim de $tempoAno anos e os juros acumulados serão de R\$${montante - capitalInicial} reais.");
+
+  }
+
 }
