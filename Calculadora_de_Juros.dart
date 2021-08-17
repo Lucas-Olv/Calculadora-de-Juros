@@ -39,74 +39,90 @@ void telaInicial() {
   } while (true);
 }
 
+// Calcula os juros simples e escreve na tela o montante e o lucro em juros.
 void calcJurosSimples() {
   
   String? juroSimplesInput = "";
   double montante = 0;
   double capitalInicial = 0;
   double taxaJuros = 0;
-  int tempo = 0; 
+  double tempoAno = 0; 
   double jurosLucro = 0;
 
   print("\nCalculadora de juros simples selecionada \n");
 
   stdout.write("Digite o valor inicial: ");
-  juroSimplesInput = stdin.readLineSync()!;
-  capitalInicial =  double.parse(juroSimplesInput);
+  capitalInicial = checarLetras(juroSimplesInput, capitalInicial);
 
   stdout.write("Digite a taxa de juros ao ano: ");
-  juroSimplesInput = stdin.readLineSync()!;
-  taxaJuros = double.parse(juroSimplesInput);
+  taxaJuros = checarLetras(juroSimplesInput, taxaJuros);
 
   stdout.write("Digite o tempo em anos: ");
-  juroSimplesInput = stdin.readLineSync()!;
-  tempo= int.parse(juroSimplesInput);
+  tempoAno = checarLetras(juroSimplesInput, tempoAno);
 
   taxaJuros = taxaJuros / 100;
-  montante = capitalInicial  + (capitalInicial * taxaJuros * tempo);
+  montante = capitalInicial  + (capitalInicial * taxaJuros * tempoAno);
   jurosLucro = montante - capitalInicial;
 
-  if (tempo <= 1) {
-    print("\nO montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de $tempo ano e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.\n");
+  if (tempoAno <= 1) {
+    print("\nO montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de ${tempoAno.toStringAsFixed(0)} ano e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.\n");
     
   } else {
-    print("\nO montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de $tempo anos e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.\n");
+    print("\nO montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de ${tempoAno.toStringAsFixed(0)} anos e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.\n");
   }
 
 }
 
+// Calcula os juros compostos e escreve na tela o montante e o lucro em juros.
 void calcJurosComposto() {
   String? juroCompostoInput = "";
   double montante = 0;
   double capitalInicial = 0;
   double taxaJuros = 0;
-  int tempoAno = 0;
+  double tempoAno = 0;
   double jurosLucro = 0;
 
   print("\nCalculadora de juros compostos selecionada \n");
 
   stdout.write("Digite o valor inicial: ");
-  juroCompostoInput = stdin.readLineSync()!;
-  capitalInicial = double.parse(juroCompostoInput);
+  capitalInicial = checarLetras(juroCompostoInput, capitalInicial);
 
   stdout.write("Digite a taxa de juros ao ano: ");
-  juroCompostoInput = stdin.readLineSync()!;
-  taxaJuros = double.parse(juroCompostoInput);
+  taxaJuros = checarLetras(juroCompostoInput, taxaJuros);
 
   stdout.write("Digite o tempo em anos: ");
-  juroCompostoInput = stdin.readLineSync()!;
-  tempoAno = int.parse(juroCompostoInput);
+  tempoAno = checarLetras(juroCompostoInput, tempoAno);
 
   taxaJuros = taxaJuros / 100;
   montante = capitalInicial * pow((1 + taxaJuros), tempoAno);
   jurosLucro = montante - capitalInicial;
 
   if (tempoAno <= 1) {
-    print("\nO montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de $tempoAno ano e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.\n");
+    print("\nO montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de ${tempoAno.toStringAsFixed(0)} ano e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.\n");
 
   } else {
-    print("\nO montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de $tempoAno anos e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.\n");
+    print("\nO montante será de R\$${montante.toStringAsFixed(2)} reais ao fim de ${tempoAno.toStringAsFixed(0)} anos e os juros acumulados serão de R\$${jurosLucro.toStringAsFixed(2)} reais.\n");
 
   }
 
+}
+
+// Confere se as entradas do usuário são apenas números, depois converte para double.
+checarLetras(String? a, double b) {
+  final exp = RegExp(r"[a-zA-Z ,]");
+
+  do {
+    a = stdin.readLineSync()!;
+
+    if ((a.contains(exp)) ||( a == "")) {
+      stdout.write("Valor inválido, tente novamente:");
+
+    } else {
+      b = double.parse(a);
+      break;
+    }
+    
+  } while (true);
+
+  return b;
 }
