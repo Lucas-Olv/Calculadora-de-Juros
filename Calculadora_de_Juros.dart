@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -109,19 +110,19 @@ void calcJurosComposto() {
 
 // Confere se as entradas do usuário são apenas números, depois converte para double.
 checarLetras(String? a, double b) {
-  final exp = RegExp(r"[a-zA-Z ,]");
+  final charProibido = RegExp(r'^([^a-z-A-Z-0-9]|[a-z-A-Z]/s)*$');
 
   do {
     a = stdin.readLineSync()!;
 
-    if ((a.contains(exp)) ||( a == "")) {
+    if ((a.contains(charProibido))) {
       stdout.write("Valor inválido, tente novamente:");
 
     } else {
       b = double.parse(a);
       break;
     }
-    
+
   } while (true);
 
   return b;
