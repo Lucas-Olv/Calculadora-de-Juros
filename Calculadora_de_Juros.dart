@@ -12,7 +12,7 @@ void telaInicial() {
   var selecionarMenu = 0;
   var selecionarMenuInput = "";
 
-  print("\nSeja bem vindo a calculadora de juros! v1.0.2 \n" );
+  print("\nSeja bem vindo a calculadora de juros! v1.3.2 \n" );
   print("1. Calcular juros simples.");
   print("2. Calcular juros compostos. \n");
 
@@ -114,7 +114,7 @@ checarLetras(String? a, double b) {
   do {
     a = stdin.readLineSync()!;
 
-    if ((a.contains(charProibido))) {
+    if (a.contains(charProibido)) {
       stdout.write("Valor inválido, tente novamente:");
 
     } else {
